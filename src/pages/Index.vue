@@ -32,6 +32,10 @@
       </div>
     </div>
 
+    <div class="col text-center">
+      <img src="https://www.fillmurray.com/100/100" alt="Bill">
+    </div>
+
   </q-page>
 </template>
 
