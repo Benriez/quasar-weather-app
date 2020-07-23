@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex column">
+  <q-page class="flex column" :class="bgClass">
     <div class="col q-pt-lg q-px-md">
       <q-input
         @keyup.enter="getWeatherbySearch"
@@ -81,6 +81,18 @@ export default {
       apiKey: '56bc2a1374eb7daa0e9aa172391c3899'
     }
   },
+  computed: {
+    bgClass(){
+      if(this.weatherData){
+        if(this.weatherData.weather[0].icon.endsWith('n')){
+          return 'bg-night'
+        }
+        else {
+          return 'bg-day'
+        }
+      }
+    }
+  },
   methods: {
     getLocation(){
       navigator.geolocation.getCurrentPosition(position => {
@@ -107,12 +119,15 @@ export default {
 <style lang="sass">
   .q-page
     background: linear-gradient(to top, #00b4db, #0083b0)
-  
+    &.bg-night
+      background: linear-gradient(to bottom, #16222a, #3a6073)
+    &.bg-day
+      background: linear-gradient(to top, #00b4db, #0083b0)
   .degree
     top: -44px;
 
   .skyline
-    flex: 0 0 100px
+    flex: 0 0 150px
     background: url(../assets/skyline.png)
     background-size: contain
     background-position: center bottom
