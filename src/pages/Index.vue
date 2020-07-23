@@ -95,22 +95,27 @@ export default {
   },
   methods: {
     getLocation(){
+      this.$q.loading.show()
       navigator.geolocation.getCurrentPosition(position => {
-        console.log('position ', position)
         this.lat= position.coords.latitude
         this.lon= position.coords.longitude
         this.getWeatherByCoords()
       })
     },
     getWeatherByCoords(){
+      this.$q.loading.show()
       this.$axios(`${this.apiURL}?lat=${this.lat}&lon=${this.lon}&appid=${this.apiKey}&units=metric`).then(response=>{
         this.weatherData = response.data
+        this.$q.loading.hide()
+
       })
     },
     getWeatherbySearch(){
-        this.$axios(`${this.apiURL}?q=${this.search}&appid=${this.apiKey}&units=metric`).then(response=>{
+      this.$q.loading.show()
+      this.$axios(`${this.apiURL}?q=${this.search}&appid=${this.apiKey}&units=metric`).then(response=>{
         this.weatherData = response.data
-      })
+        this.$q.loading.hide()
+    })
     }
   }
 }
