@@ -36,6 +36,8 @@
       <img src="https://www.fillmurray.com/100/100" alt="Bill">
     </div>
 
+    <div class="col skyline"></div>
+
   </q-page>
 </template>
 
@@ -53,6 +55,13 @@ export default {
 <style lang="sass">
   .q-page
     background: linear-gradient(to top, #00b4db, #0083b0)
+  
   .degree
     top: -44px;
+
+  .skyline
+    flex: 0 0 100px
+    background: url(../assets/skyline.png)
+    background-size: contain
+    background-position: center bottom
 </style>
