@@ -26,19 +26,19 @@
     <template v-if="weatherData">
       <div class="col text-white text-center">
         <div class="text-h4 text-weight-light">
-          Frankfurt
+          {{weatherData.name}}
         </div>
         <div class="text-h6 text-weight-light">
-          Rain
+          {{weatherData.weather[0].main}}
         </div>
         <div class="text-h1 text-weight-thin q-my-lg relative-position">
-          <span>8</span>
-          <span class="text-h4 relative-position degree">&deg;</span>
+          <span>{{ Math.round(weatherData.main.temp)}}</span>
+          <span class="text-h4 relative-position degree">&deg;C</span>
         </div>
       </div>
 
       <div class="col text-center">
-        <img src="https://www.fillmurray.com/100/100" alt="Bill">
+        <img :src="`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`">
       </div>
     </template>
 
@@ -70,7 +70,9 @@ export default {
       search: '',
       weatherData: null,
       lat: null,
-      lon: null
+      lon: null,
+      apiURL:'https://api.openweathermap.org/data/2.5/weather',
+      apiKey: '56bc2a1374eb7daa0e9aa172391c3899'
     }
   },
   methods: {
@@ -83,7 +85,9 @@ export default {
       })
     },
     getWeatherByCoords(){
-      
+      this.$axios(`${this.apiURL}?lat=${this.lat}&lon=${this.lon}&appid=${this.apiKey}&units=metric`).then(response=>{
+        this.weatherData = response.data
+      })
     }
   }
 }
