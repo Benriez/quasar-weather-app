@@ -18,6 +18,20 @@
         </template>
       </q-input>
     </div>
+
+    <div class="col text-white text-center">
+      <div class="text-h4 text-weight-light">
+        Frankfurt
+      </div>
+      <div class="text-h6 text-weight-light">
+        Rain
+      </div>
+      <div class="text-h1 text-weight-thin q-my-lg relative-position">
+        <span>8</span>
+        <span class="text-h4 relative-position degree">&deg;</span>
+      </div>
+    </div>
+
   </q-page>
 </template>
 
@@ -35,4 +49,6 @@ export default {
 <style lang="sass">
   .q-page
     background: linear-gradient(to top, #00b4db, #0083b0)
+  .degree
+    top: -44px;
 </style>
