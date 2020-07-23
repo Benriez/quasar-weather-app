@@ -19,22 +19,30 @@
       </q-input>
     </div>
 
-    <div class="col text-white text-center">
-      <div class="text-h4 text-weight-light">
-        Frankfurt
-      </div>
-      <div class="text-h6 text-weight-light">
-        Rain
-      </div>
-      <div class="text-h1 text-weight-thin q-my-lg relative-position">
-        <span>8</span>
-        <span class="text-h4 relative-position degree">&deg;</span>
-      </div>
-    </div>
+    
 
-    <div class="col text-center">
-      <img src="https://www.fillmurray.com/100/100" alt="Bill">
-    </div>
+    <template v-if="weatherData">
+      <div class="col text-white text-center">
+        <div class="text-h4 text-weight-light">
+          Frankfurt
+        </div>
+        <div class="text-h6 text-weight-light">
+          Rain
+        </div>
+        <div class="text-h1 text-weight-thin q-my-lg relative-position">
+          <span>8</span>
+          <span class="text-h4 relative-position degree">&deg;</span>
+        </div>
+      </div>
+
+      <div class="col text-center">
+        <img src="https://www.fillmurray.com/100/100" alt="Bill">
+      </div>
+    </template>
+
+    <template v-else>
+      
+    </template>
 
     <div class="col skyline"></div>
 
@@ -46,7 +54,8 @@ export default {
   name: 'PageIndex',
   data(){
     return{
-      search: ''
+      search: '',
+      weatherData: null
     }
   }
 }
