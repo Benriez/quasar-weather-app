@@ -1,9 +1,6 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
+  <q-page class="flex column">
+
   </q-page>
 </template>
 
@@ -12,3 +9,8 @@ export default {
   name: 'PageIndex'
 }
 </script>
+
+<style lang="sass">
+  .q-page
+    background: linear-gradient(to top, #00b4db, #0083b0)
+</style>
