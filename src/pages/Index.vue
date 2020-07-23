@@ -41,7 +41,15 @@
     </template>
 
     <template v-else>
-      
+      <div class="col column text-center text-white">
+        <div class="col text-h2 text-weight-thin">
+          Quasar <br> Weahter
+        </div>
+          <q-btn class="col" flat>
+            <q-icon left size="3em" name="my_location" />
+            <div>Find my location</div>
+          </q-btn>
+      </div>
     </template>
 
     <div class="col skyline"></div>
