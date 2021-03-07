@@ -51,7 +51,7 @@
     <template v-else>
       <div class="col column text-center text-white">
         <div class="col text-h2 text-weight-thin">
-          Quasar <br> Weahter
+          Quasar <br> Weather
         </div>
           <q-btn
             @click="getLocation"
@@ -106,16 +106,33 @@ export default {
       this.$q.loading.show()
       this.$axios(`${this.apiURL}?lat=${this.lat}&lon=${this.lon}&appid=${this.apiKey}&units=metric`).then(response=>{
         this.weatherData = response.data
+        console.log('response.data', response.data)
         this.$q.loading.hide()
-
+        // https://www.dcat-ap.de/def/politicalGeocoding/municipalityKey/20210131.html
       })
     },
     getWeatherbySearch(){
       this.$q.loading.show()
       this.$axios(`${this.apiURL}?q=${this.search}&appid=${this.apiKey}&units=metric`).then(response=>{
         this.weatherData = response.data
+        console.log(this.weatherData.name)
+        var ort = this.weatherData.name
+        var ags = [];
+        
+        jQuery.get('ags.txt',function(data){
+          for (let index = 0; index < 5; index++) {
+            ags = ags + data.charAt(data.indexOf(ort)-27 + index)
+            
+          }
+          console.log(ags)
+
+        });
+
+        
         this.$q.loading.hide()
-    })
+      })
+      
+
     }
   }
 }
