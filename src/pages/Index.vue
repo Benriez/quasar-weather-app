@@ -35,11 +35,10 @@
           {{weatherData.name}}
         </div>
         <div class="text-h6 text-weight-light">
-          {{weatherData.weather[0].main}}
+          7 Tage Inzidenz
         </div>
         <div class="text-h1 text-weight-thin q-my-lg relative-position">
-          <span>{{ Math.round(weatherData.main.temp)}}</span>
-          <span class="text-h4 relative-position degree">&deg;C</span>
+          <span>{{ Math.round(coronaData.data["01001"].weekIncidence)}}</span> 
         </div>
       </div>
 
@@ -75,9 +74,13 @@ export default {
     return{
       search: '',
       weatherData: null,
+      coronaData: null,
+      weekIncidence: '',
+      gemeindezahl: null,
       lat: null,
       lon: null,
       apiURL:'https://api.openweathermap.org/data/2.5/weather',
+      apiCoronaURL: 'https://api.corona-zahlen.org/districts/',
       apiKey: '56bc2a1374eb7daa0e9aa172391c3899'
     }
   },
@@ -115,24 +118,43 @@ export default {
       this.$q.loading.show()
       this.$axios(`${this.apiURL}?q=${this.search}&appid=${this.apiKey}&units=metric`).then(response=>{
         this.weatherData = response.data
-        console.log(this.weatherData.name)
-        var ort = this.weatherData.name
-        var ags = [];
-        
-        jQuery.get('ags.txt',function(data){
-          for (let index = 0; index < 5; index++) {
-            ags = ags + data.charAt(data.indexOf(ort)-27 + index)
-            
-          }
-          console.log(ags)
-
-        });
+        this.getAGS()
 
         
-        this.$q.loading.hide()
       })
+      this.$q.loading.hide()
+
+    }, 
+    getAGS(){
+      var ort = this.weatherData.name
+      var ags = '';
+      
+      jQuery.get('ags.txt',function(data){
+        for (let index = 0; index < 5; index++) {
+          ags = ags + data.charAt(data.indexOf(ort)-27 + index)    
+        }
+      });
+
+      setTimeout(function (){
+        this.gemeindezahl = ags
+        console.log(this.gemeindezahl)
+        check()
+
+      }, 250);
+      
+      var check = function(){
+          console.log('late')
+          this.getCoronaStats()
+      }
+      
       
 
+    },
+    getCoronaStats(){
+      this.$axios(`https://api.corona-zahlen.org/districts/${this.gemeindezahl}`).then(response=>{
+        this.coronaData = response.data
+      });
+      console.log('late')
     }
   }
 }
